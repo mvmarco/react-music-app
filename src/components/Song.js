@@ -1,6 +1,4 @@
 // This is the central part of the application that shows: song name, artist and picture
-import React from 'react';
-
 const Song = () => {
   return(
     <div className="song-container">

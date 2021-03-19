@@ -1,10 +1,10 @@
 // This is the central part of the application that shows: song name, artist and picture
-const Song = () => {
+const Song = ({currentSong}) => {
   return(
     <div className="song-container">
-      <h1>Picture</h1>
-      <h1>Song Name</h1>
-      <h1>Artist</h1>
+      <img src={currentSong.cover} alt=""/>
+      <h2>{currentSong.name}</h2>
+      <h3>{currentSong.artist}</h3>
     </div>
   )
 }

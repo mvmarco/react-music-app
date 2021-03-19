@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 /* 
   "useRef" is a way of connecting to the elements without doing: document.querySelector("audio")
   it is a way to grab something using react.
@@ -21,6 +21,13 @@ import {
 const Player = ({currentSong, isPlaying, setisPlaying}) => {
   // Ref
   const audioRef = useRef(null);
+
+  // state I am gonna use only here: timing
+  const [songInfo, setsongInfo] = useState({
+    currentTime: null,
+    duration: null,
+  });
+
   // Event Handlers
   const playSongHandler = () => {
     console.log(audioRef);
@@ -32,20 +39,34 @@ const Player = ({currentSong, isPlaying, setisPlaying}) => {
       setisPlaying(!isPlaying)
     }
   }
-  // state I am gonna use only here: timing
+
+  const timeUpdateHandler = (e) => {
+    // from this event we can extract: the current time we are in the song and also the song duration
+    console.log(e);
+    const currentTime = e.target.currentTime;
+    const duration = e.target.duration;
+    console.log(currentTime, duration);
+    setsongInfo({...songInfo, currentTime: currentTime, duration: duration })
+  }
+
+  // function for formatting the time, using a stackOverflow formatting
+  function formatTime(time) {
+     return (Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2));
+  }
+
   return (
     <div className="player-container">
       <div className="time-control">
-        <p>Start Time</p>
+        <p>{formatTime(songInfo.currentTime)}</p>
         <input type="range"/>
-        <p>End Time</p>
+        <p>{formatTime(songInfo.duration)}</p>
       </div>
       <div className="player-control">
         <FontAwesomeIcon className="skip-back" size="2x" icon={faAngleLeft}/>
         <FontAwesomeIcon onClick={playSongHandler} className="play" size="2x" icon={faPlay}/>
         <FontAwesomeIcon className="skip-forward" size="2x" icon={faAngleRight}/>
       </div>
-      <audio ref={audioRef} src={currentSong.audio}></audio>
+      <audio onTimeUpdate={timeUpdateHandler} ref={audioRef} src={currentSong.audio}></audio>
     </div>
   )
 }

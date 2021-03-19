@@ -40,6 +40,8 @@ const Player = ({currentSong, isPlaying, setisPlaying}) => {
     }
   }
 
+  // this is connected to the onTimeUpdate event. Which let us update values in real time
+  // this is connected to onLoadedMetadata, when the pages loads the info updated
   const timeUpdateHandler = (e) => {
     // from this event we can extract: the current time we are in the song and also the song duration
     console.log(e);
@@ -54,6 +56,7 @@ const Player = ({currentSong, isPlaying, setisPlaying}) => {
      return (Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2));
   }
 
+
   return (
     <div className="player-container">
       <div className="time-control">
@@ -66,7 +69,7 @@ const Player = ({currentSong, isPlaying, setisPlaying}) => {
         <FontAwesomeIcon onClick={playSongHandler} className="play" size="2x" icon={faPlay}/>
         <FontAwesomeIcon className="skip-forward" size="2x" icon={faAngleRight}/>
       </div>
-      <audio onTimeUpdate={timeUpdateHandler} ref={audioRef} src={currentSong.audio}></audio>
+      <audio onTimeUpdate={timeUpdateHandler} onLoadedMetadata={timeUpdateHandler} ref={audioRef} src={currentSong.audio}></audio>
     </div>
   )
 }

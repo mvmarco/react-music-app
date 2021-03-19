@@ -1,9 +1,14 @@
 import { useRef } from 'react';
 /* 
   "useRef" is a way of connecting to the elements without doing: document.querySelector("audio")
-  for instance. So you can create a const with a null initial value, as below:
+  it is a way to grab something using react.
+  So you can create a const with a null initial value, as below:
   const audioRef = useRef(null)
   then we pass it as a prop in our <audio> element
+
+  The event callback, use audioRef.current (which is one of the key of the audio object) and
+  calls a pre-existing function on audio called play();
+  audioRef.current.play();
 */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
@@ -11,13 +16,23 @@ import {
   faAngleLeft,
   faAngleRight,
 } from '@fortawesome/free-solid-svg-icons'
-const Player = ({currentSong}) => {
+
+
+const Player = ({currentSong, isPlaying, setisPlaying}) => {
   // Ref
   const audioRef = useRef(null);
   // Event Handlers
   const playSongHandler = () => {
     console.log(audioRef);
+    if(isPlaying) {
+      audioRef.current.pause();
+      setisPlaying(!isPlaying)
+    }else{
+      audioRef.current.play();
+      setisPlaying(!isPlaying)
+    }
   }
+  // state I am gonna use only here: timing
   return (
     <div className="player-container">
       <div className="time-control">

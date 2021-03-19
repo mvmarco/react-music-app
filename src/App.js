@@ -17,11 +17,12 @@ function App() {
   // state
   const [songs, setSongs] = useState(data());
   const [currentSong, setcurrentSong] = useState(songs[0]);
+  const [isPlaying, setisPlaying] = useState(false);
   return (
     <div className="App">
       <h1>React Music Player</h1>
       <Song currentSong={currentSong} />
-      <Player currentSong={currentSong} />
+      <Player currentSong={currentSong} isPlaying={isPlaying} setisPlaying={setisPlaying} />
     </div>
   );
 }

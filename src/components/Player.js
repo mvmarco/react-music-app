@@ -9,7 +9,33 @@ import { useRef, useState } from 'react';
   The event callback, use audioRef.current (which is one of the key of the audio object) and
   calls a pre-existing function on audio called play();
   audioRef.current.play();
-*/
+
+
+
+  // ####################################
+  // ERROR: CONTROLLED AND UNCONTROLLED
+  // ####################################
+
+  /* 
+    error: a component is changing an uncontrolled input of index.js type range to be controlled.
+    Input elements should not switch from uncontrolled to controlled (or vice versa).
+
+    Uncontrolled means that our input value is not associated to a state, so when the data changes
+    associated to a state the input is still asociated to the input itself and not the react state 
+    input. Once you associate the input value to the state, the component becomes controlled.
+
+    1. uncontrolled component: input that has nothing to do with a state
+    2. controlled component: value of the input is associated to  
+
+    we got the error because, that mess up with the states:
+    currentTime: 0,
+    duration: 0,
+
+    was set to null:
+    currentTime: null,
+    duration: null,
+  */
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
   faPlay,
@@ -24,8 +50,8 @@ const Player = ({currentSong, isPlaying, setisPlaying}) => {
 
   // state I am gonna use only here: timing
   const [songInfo, setsongInfo] = useState({
-    currentTime: null,
-    duration: null,
+    currentTime: 0,
+    duration: 0,
   });
 
   // Event Handlers
@@ -67,7 +93,12 @@ const Player = ({currentSong, isPlaying, setisPlaying}) => {
     <div className="player-container">
       <div className="time-control">
         <p>{formatTime(songInfo.currentTime)}</p>
-        <input onChange={dragHandler} min={0} max={songInfo.duration} value={songInfo.currentTime} type="range"/>
+        <input 
+          onChange={dragHandler} 
+          min={0} max={songInfo.duration}
+          value={songInfo.currentTime} 
+          type="range"
+        />
         <p>{formatTime(songInfo.duration)}</p>
       </div>
       <div className="player-control">

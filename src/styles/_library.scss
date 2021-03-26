@@ -1,0 +1,56 @@
+.library {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20rem;
+  height: 100%;
+  background-color: #ffffff;
+  // top, bottom, amount of blur (lower number more intense color), color
+  box-shadow: 2px 2px 50px rgb(204, 204, 204);
+  overflow: scroll;
+  h2 {
+    padding: 2rem;
+  }
+}
+
+.library-song {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  img {
+    width: 30%;
+  }
+  // we can add a hover as follow
+  &:hover {
+    background: rgb(229, 235, 241);
+  }
+}
+
+.song-description {
+  padding-left: 1rem;
+  h3 {
+    font-size: 1rem;
+  }
+  h4 {
+    font-size: 0.7rem;
+  }
+}
+
+// trick to fix the scroll bar (works only on fireFox)
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(153, 159, 165, 0.5) transparent;
+}
+// to let it work on chrome
+*::-webkit-scrollbar {
+  width: 5px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(153, 159, 165, 0.5);
+  border-radius: 20px;
+  border: transparent;
+}

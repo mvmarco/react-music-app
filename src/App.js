@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 // import components
 import Song from "./components/Song.js"
 import Player from "./components/Player.js"
@@ -14,20 +14,49 @@ import data from "./data.js";
 */
 
 function App() {
+  // ref
+  const audioRef = useRef(null);
   // state
   const [songs, setSongs] = useState(data());
   const [currentSong, setcurrentSong] = useState(songs[0]);
   const [isPlaying, setisPlaying] = useState(false);
+  const [songInfo, setsongInfo] = useState({
+    currentTime: 0,
+    duration: 0,
+  });
+  // events callbacks
+  const timeUpdateHandler = (e) => {
+    // from this event we can extract: the current time we are in the song and also the song duration
+    console.log(e);
+    const currentTime = e.target.currentTime;
+    const duration = e.target.duration;
+    console.log(currentTime, duration);
+    setsongInfo({ ...songInfo, currentTime: currentTime, duration: duration });
+  };
   return (
     <div className="App">
       <h1>React Music Player</h1>
       <Song currentSong={currentSong} />
       <Player
+        audioRef={audioRef}
         currentSong={currentSong}
         isPlaying={isPlaying}
         setisPlaying={setisPlaying}
+        setsongInfo={setsongInfo}
+        songInfo={songInfo}
       />
-      <Library songs={songs} setcurrentSong={setcurrentSong} />
+      <Library
+        songs={songs}
+        setcurrentSong={setcurrentSong}
+        audioRef={audioRef}
+        isPlaying={isPlaying}
+      />
+      <audio
+        onTimeUpdate={timeUpdateHandler}
+        onLoadedMetadata={timeUpdateHandler}
+        ref={audioRef}
+        src={currentSong.audio}
+      ></audio>
     </div>
   );
 }

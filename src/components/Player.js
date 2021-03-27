@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 /* 
   "useRef" is a way of connecting to the elements without doing: document.querySelector("audio")
   it is a way to grab something using react.
@@ -45,15 +45,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 
-const Player = ({currentSong, isPlaying, setisPlaying}) => {
-  // Ref
-  const audioRef = useRef(null);
+const Player = ({isPlaying, setisPlaying, audioRef, setsongInfo, songInfo}) => {
+  // Ref,  it is moved to App. so we can use it to LibrarySong.js when you click the song there, it plays
+  // const audioRef = useRef(null);
 
-  // state I am gonna use only here: timing
-  const [songInfo, setsongInfo] = useState({
-    currentTime: 0,
-    duration: 0,
-  });
+  // state I am gonna use only here: timing, moved to the app
+  /*
+    const [songInfo, setsongInfo] = useState({
+      currentTime: 0,
+      duration: 0,
+    });
+   */
 
   // Event Handlers
   const playSongHandler = () => {
@@ -69,14 +71,15 @@ const Player = ({currentSong, isPlaying, setisPlaying}) => {
 
   // this is connected to the onTimeUpdate event. Which let us update values in real time
   // this is connected to onLoadedMetadata, when the pages loads the info updated
-  const timeUpdateHandler = (e) => {
+  // moved to the App
+  /*   const timeUpdateHandler = (e) => {
     // from this event we can extract: the current time we are in the song and also the song duration
     console.log(e);
     const currentTime = e.target.currentTime;
     const duration = e.target.duration;
     console.log(currentTime, duration);
     setsongInfo({...songInfo, currentTime: currentTime, duration: duration })
-  }
+  } */
 
   // onChange is the event for this callback to move the input range
   const dragHandler = (e) => {
@@ -117,12 +120,7 @@ const Player = ({currentSong, isPlaying, setisPlaying}) => {
           icon={faAngleRight}
         />
       </div>
-      <audio
-        onTimeUpdate={timeUpdateHandler}
-        onLoadedMetadata={timeUpdateHandler}
-        ref={audioRef}
-        src={currentSong.audio}
-      ></audio>
+
     </div>
   );
 }

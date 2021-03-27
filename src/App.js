@@ -50,6 +50,8 @@ function App() {
         setcurrentSong={setcurrentSong}
         audioRef={audioRef}
         isPlaying={isPlaying}
+        setsongInfo={setsongInfo}
+        setSongs={setSongs}
       />
       <audio
         onTimeUpdate={timeUpdateHandler}

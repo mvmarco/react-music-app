@@ -1,5 +1,4 @@
-import { useState } from 'react';
-/* 
+/*   
   "useRef" is a way of connecting to the elements without doing: document.querySelector("audio")
   it is a way to grab something using react.
   So you can create a const with a null initial value, as below:
@@ -9,7 +8,7 @@ import { useState } from 'react';
   The event callback, use audioRef.current (which is one of the key of the audio object) and
   calls a pre-existing function on audio called play();
   audioRef.current.play();
-
+ */
 
 
   // ####################################
@@ -100,7 +99,7 @@ const Player = ({isPlaying, setisPlaying, audioRef, setsongInfo, songInfo}) => {
         <input
           onChange={dragHandler}
           min={0}
-          max={songInfo.duration}
+          max={songInfo.duration || 0}
           value={songInfo.currentTime}
           type="range"
         />

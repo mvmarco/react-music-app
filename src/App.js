@@ -25,6 +25,7 @@ function App() {
     currentTime: 0,
     duration: 0,
   });
+  const [libraryStatus, setLibraryStatus] = useState(false)
   // events callbacks
   const timeUpdateHandler = (e) => {
     // from this event we can extract: the current time we are in the song and also the song duration
@@ -36,7 +37,7 @@ function App() {
   };
   return (
     <div className="App">
-      <Nav />
+      <Nav setLibraryStatus={setLibraryStatus} libraryStatus={libraryStatus} />
       <Song currentSong={currentSong} />
       <Player
         audioRef={audioRef}
@@ -53,6 +54,7 @@ function App() {
         isPlaying={isPlaying}
         setsongInfo={setsongInfo}
         setSongs={setSongs}
+        libraryStatus={libraryStatus}
       />
       <audio
         onTimeUpdate={timeUpdateHandler}

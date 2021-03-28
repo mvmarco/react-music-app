@@ -61,3 +61,8 @@
 .selected {
   background: rgba(110, 221, 255, 0.363);
 }
+
+.active-library {
+  transform: translateX(0%);
+  opacity: 1;
+}

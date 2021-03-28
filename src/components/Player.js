@@ -44,7 +44,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 
-const Player = ({isPlaying, setisPlaying, audioRef, setsongInfo, songInfo}) => {
+const Player = ({
+  isPlaying,
+  setisPlaying,
+  audioRef,
+  setsongInfo,
+  songInfo,
+  songs,
+  currentSong,
+  setcurrentSong,
+}) => {
   // Ref,  it is moved to App. so we can use it to LibrarySong.js when you click the song there, it plays
   // const audioRef = useRef(null);
 
@@ -59,14 +68,14 @@ const Player = ({isPlaying, setisPlaying, audioRef, setsongInfo, songInfo}) => {
   // Event Handlers
   const playSongHandler = () => {
     console.log(audioRef);
-    if(isPlaying) {
+    if (isPlaying) {
       audioRef.current.pause();
-      setisPlaying(!isPlaying)
-    }else{
+      setisPlaying(!isPlaying);
+    } else {
       audioRef.current.play();
-      setisPlaying(!isPlaying)
+      setisPlaying(!isPlaying);
     }
-  }
+  };
 
   // this is connected to the onTimeUpdate event. Which let us update values in real time
   // this is connected to onLoadedMetadata, when the pages loads the info updated
@@ -82,15 +91,42 @@ const Player = ({isPlaying, setisPlaying, audioRef, setsongInfo, songInfo}) => {
 
   // onChange is the event for this callback to move the input range
   const dragHandler = (e) => {
-    audioRef.current.currentTime = e.target.value
+    audioRef.current.currentTime = e.target.value;
     console.log(e.target.value);
-    setsongInfo({...songInfo, currentTime: e.target.value})
-  }
+    setsongInfo({ ...songInfo, currentTime: e.target.value });
+  };
   // function for formatting the time, using a stackOverflow formatting
   function formatTime(time) {
-     return (Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2));
+    return (
+      Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
+    );
   }
 
+  const skipTrackHandler = (direction) => {
+    // get the index of the current song
+    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+    // if the class is equal to skip-forward the change the current song, using index +1
+    // but to prevent the last song to skip to nothing we need to add the "modules" %
+    // if 8 % 8 is equal to 0, 0 will be our index, so it starts again from the beginning
+    /* 
+      if 2 % 8 is equal to 2, 2 will be the index. 
+      It's really supper easy to figure out the results of modulo when the first number is smaller. 
+      The result is always equal the the first (smaller) number.
+      Because the second number is larger, it 'goes into' the first number zero times and the remainder 
+      is the entirety of this first number.
+
+      if you wanna go back, and the index is 0 you cannot go index -1. Because index -1 does not exist.
+      so we need to make a ternary where if the current index is 0 you take the song.length -1
+      and get index 7. If you are not at current index 9 you can just go back currentIndex - 1
+      we need to return it either one of the two ifs and update the 
+
+    */
+    if (direction === "skip-forward") {
+      setcurrentSong(songs[(currentIndex + 1) % songs.length]);
+    } else if (direction === "skip-back") {
+      setcurrentSong(songs[currentIndex - 1] || songs[songs.length - 1]);
+    }
+  };
 
   return (
     <div className="player-container">
@@ -106,7 +142,12 @@ const Player = ({isPlaying, setisPlaying, audioRef, setsongInfo, songInfo}) => {
         <p>{formatTime(songInfo.duration)}</p>
       </div>
       <div className="player-control">
-        <FontAwesomeIcon className="skip-back" size="2x" icon={faAngleLeft} />
+        <FontAwesomeIcon
+          onClick={() => skipTrackHandler("skip-back")}
+          className="skip-back"
+          size="2x"
+          icon={faAngleLeft}
+        />
         <FontAwesomeIcon
           onClick={playSongHandler}
           className="play"
@@ -114,14 +155,14 @@ const Player = ({isPlaying, setisPlaying, audioRef, setsongInfo, songInfo}) => {
           icon={isPlaying ? faPause : faPlay}
         />
         <FontAwesomeIcon
+          onClick={() => skipTrackHandler("skip-forward")}
           className="skip-forward"
           size="2x"
           icon={faAngleRight}
         />
       </div>
-
     </div>
   );
-}
+};
 
 export default Player;

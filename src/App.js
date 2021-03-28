@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import Song from "./components/Song.js"
 import Player from "./components/Player.js"
 import Library from "./components/Library.js";
+import Nav from "./components/Nav"
 // import styles
 import "./styles/app.scss";
 // import data.js
@@ -35,7 +36,7 @@ function App() {
   };
   return (
     <div className="App">
-      <h1>React Music Player</h1>
+      <Nav />
       <Song currentSong={currentSong} />
       <Player
         audioRef={audioRef}

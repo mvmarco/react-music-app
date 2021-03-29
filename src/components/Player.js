@@ -158,7 +158,7 @@ const Player = ({
     <div className="player-container">
       <div className="time-control">
         <p>{formatTime(songInfo.currentTime)}</p>
-        <div className="track">
+        <div style={{background:`linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]}`}} className="track">
           <input
             onChange={dragHandler}
             min={0}

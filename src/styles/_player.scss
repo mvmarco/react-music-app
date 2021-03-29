@@ -32,7 +32,7 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 16px;
   width: 16px;
-  background: black;
+  border-radius: 50%;
 }
 
 // track is the main div of the range input

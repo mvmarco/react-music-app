@@ -1,3 +1,4 @@
+import {playAudio} from '../util.js'
 const LibrarySong = ({songs, song, setcurrentSong, audioRef, isPlaying, setSongs}) => {
 
   const songSelectHandler = () => {
@@ -36,14 +37,7 @@ const LibrarySong = ({songs, song, setcurrentSong, audioRef, isPlaying, setSongs
     // then we update the currentSong, the state, with what we just selected
     setcurrentSong(selectedSong);
     // check if the song is playing
-    if (isPlaying) {
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then((audio) => {
-          audioRef.current.play();
-        });
-      }
-    }
+    playAudio(isPlaying, audioRef)
   };
   return (
     <div onClick={songSelectHandler} className={`library-song ${song.active ? 'selected' : ""}`}>

@@ -43,7 +43,7 @@ import {
   faAngleRight,
   faPause,
 } from '@fortawesome/free-solid-svg-icons'
-
+import { playAudio } from "../util.js";
 
 const Player = ({
   isPlaying,
@@ -149,6 +149,7 @@ const Player = ({
     } else if (direction === "skip-back") {
       setcurrentSong(songs[currentIndex - 1] || songs[songs.length - 1]);
     }
+    playAudio(isPlaying, audioRef)
   };
 
   return (
@@ -162,7 +163,7 @@ const Player = ({
           value={songInfo.currentTime}
           type="range"
         />
-        <p>{formatTime(songInfo.duration)}</p>
+        <p>{songInfo.duration ? formatTime(songInfo.duration) : "0:00"}</p>
       </div>
       <div className="player-control">
         <FontAwesomeIcon

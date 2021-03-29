@@ -151,7 +151,9 @@ const Player = ({
     }
     playAudio(isPlaying, audioRef)
   };
-
+  const trackAnim = {
+    transform: `translateX(${songInfo.animationPertantage}%)`,
+  };
   return (
     <div className="player-container">
       <div className="time-control">
@@ -164,8 +166,7 @@ const Player = ({
             value={songInfo.currentTime}
             type="range"
           />
-          <div className="animate-track">
-          </div>
+          <div style={trackAnim} className="animate-track"></div>
         </div>
         <p>{songInfo.duration ? formatTime(songInfo.duration) : "0:00"}</p>
       </div>

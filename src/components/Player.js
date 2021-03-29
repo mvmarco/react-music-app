@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 /*   
   "useRef" is a way of connecting to the elements without doing: document.querySelector("audio")
   it is a way to grab something using react.
@@ -53,6 +54,7 @@ const Player = ({
   songs,
   currentSong,
   setcurrentSong,
+  setSongs,
 }) => {
   // Ref,  it is moved to App. so we can use it to LibrarySong.js when you click the song there, it plays
   // const audioRef = useRef(null);
@@ -64,6 +66,27 @@ const Player = ({
       duration: 0,
     });
    */
+
+  // UseEffect
+  // when you skip song also the library song gets updated
+  useEffect(() => {
+    const newSongs = songs.map((song) => {
+      if (currentSong.id === song.id) {
+        return {
+          ...song,
+          active: true,
+        };
+      } else {
+        return {
+          ...song,
+          active: false,
+        };
+      }
+    });
+    setSongs(newSongs);
+    // run this function all the time the current song is updated.
+    // basically when the current song changes, the status is active, and active status = hover LibrarySong
+  }, [currentSong]);
 
   // Event Handlers
   const playSongHandler = () => {

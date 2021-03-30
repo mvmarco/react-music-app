@@ -43,7 +43,6 @@ import {
   faAngleRight,
   faPause,
 } from '@fortawesome/free-solid-svg-icons'
-import { playAudio } from "../util.js";
 
 const Player = ({
   isPlaying,
@@ -125,7 +124,7 @@ const Player = ({
     );
   }
 
-  const skipTrackHandler = (direction) => {
+  const skipTrackHandler = async (direction) => {
     // get the index of the current song
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     // if the class is equal to skip-forward the change the current song, using index +1
@@ -145,11 +144,14 @@ const Player = ({
 
     */
     if (direction === "skip-forward") {
-      setcurrentSong(songs[(currentIndex + 1) % songs.length]);
+     await setcurrentSong(songs[(currentIndex + 1) % songs.length]);
     } else if (direction === "skip-back") {
-      setcurrentSong(songs[currentIndex - 1] || songs[songs.length - 1]);
+      await setcurrentSong(songs[currentIndex - 1] || songs[songs.length - 1]);
     }
-    playAudio(isPlaying, audioRef)
+    // this line waits for the songs to load before we can actually play them
+    if (isPlaying) {
+      audioRef.current.play();
+    }
   };
   const trackAnim = {
     transform: `translateX(${songInfo.animationPertantage}%)`,

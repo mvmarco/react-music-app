@@ -1,9 +1,9 @@
-import {playAudio} from '../util.js'
 const LibrarySong = ({songs, song, setcurrentSong, audioRef, isPlaying, setSongs}) => {
 
-  const songSelectHandler = () => {
+  const songSelectHandler = async () => {
     const selectedSong = song;
-    setcurrentSong(selectedSong);
+    // we use awai tbecause the audio is on App.js
+    await setcurrentSong(selectedSong);
     console.log(selectedSong);
     // add active state
     /* 
@@ -37,7 +37,9 @@ const LibrarySong = ({songs, song, setcurrentSong, audioRef, isPlaying, setSongs
     // then we update the currentSong, the state, with what we just selected
     setcurrentSong(selectedSong);
     // check if the song is playing
-    playAudio(isPlaying, audioRef)
+    if (isPlaying) {
+      audioRef.current.play();
+    }
   };
   return (
     <div onClick={songSelectHandler} className={`library-song ${song.active ? 'selected' : ""}`}>

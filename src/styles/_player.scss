@@ -33,6 +33,15 @@ input[type="range"]::-webkit-slider-thumb {
   height: 16px;
   width: 16px;
   border-radius: 50%;
+  border: none;
+}
+// this for firefox browser, mozilla
+input[type="range"]::-moz-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: none;
 }
 
 // track is the main div of the range input
@@ -65,5 +74,14 @@ input[type="range"]::-webkit-slider-thumb {
   width: 30%;
   svg {
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .time-control {
+    width: 90%;
+  }
+  .player-control {
+    width: 60%;
   }
 }

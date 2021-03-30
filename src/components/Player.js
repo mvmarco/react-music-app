@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 /*   
   "useRef" is a way of connecting to the elements without doing: document.querySelector("audio")
   it is a way to grab something using react.
@@ -66,27 +65,45 @@ const Player = ({
     });
    */
 
-  // UseEffect
-  // when you skip song also the library song gets updated
-  useEffect(() => {
+  /*
+    // REMOVED IT BECAUSE IT IS DOUBLE ON THE LIBRARYSONG
+    // UseEffect
+    // when you skip song also the library song gets updated
+    useEffect(() => {
+      const newSongs = songs.map((song) => {
+        if (currentSong.id === song.id) {
+          return {
+            ...song,
+            active: true,
+          };
+        } else {
+          return {
+            ...song,
+            active: false,
+          };
+        }
+      });
+      setSongs(newSongs);
+    }, [currentSong]);
+    // run this function all the time the current song is updated.
+    // basically when the current song changes, the status is active, and active status = hover LibrarySong
+ */
+  const activeLibraryHandler = (nextPrev) => {
     const newSongs = songs.map((song) => {
-      if (currentSong.id === song.id) {
+      if (currentSong.id === nextPrev.id) {
         return {
-          ...song,
-          active: true,
+        ...song,
+        active: true,
         };
       } else {
         return {
-          ...song,
-          active: false,
+        ...song,
+        active: false,
         };
       }
     });
-    setSongs(newSongs);
-    // run this function all the time the current song is updated.
-    // basically when the current song changes, the status is active, and active status = hover LibrarySong
-  }, [currentSong]);
-
+    setSongs(newSongs)
+  }
   // Event Handlers
   const playSongHandler = () => {
     console.log(audioRef);
@@ -145,8 +162,10 @@ const Player = ({
     */
     if (direction === "skip-forward") {
      await setcurrentSong(songs[(currentIndex + 1) % songs.length]);
+     activeLibraryHandler(songs[(currentIndex + 1) % songs.length]);
     } else if (direction === "skip-back") {
       await setcurrentSong(songs[currentIndex - 1] || songs[songs.length - 1]);
+      activeLibraryHandler(songs[currentIndex - 1] || songs[songs.length - 1]);
     }
     // this line waits for the songs to load before we can actually play them
     if (isPlaying) {

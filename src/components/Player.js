@@ -178,7 +178,7 @@ const Player = ({
   return (
     <div className="player-container">
       <div className="time-control">
-        <p style={{ width: "5ch", boxSizing: "content-box" }}>
+        <p style={{ width: "4ch", boxSizing: "content-box" }}>
           {formatTime(songInfo.currentTime)}
         </p>
         <div
@@ -196,7 +196,7 @@ const Player = ({
           />
           <div style={trackAnim} className="animate-track"></div>
         </div>
-        <p style={{ width: "5ch", boxSizing: "content-box" }}>
+        <p>
           {songInfo.duration ? formatTime(songInfo.duration) : "0:00"}
         </p>
       </div>

@@ -178,13 +178,15 @@ const Player = ({
   return (
     <div className="player-container">
       <div className="time-control">
-        <p>{formatTime(songInfo.currentTime)}</p>
-        <div 
-          style={{ 
+        <p style={{ width: "5ch", boxSizing: "content-box" }}>
+          {formatTime(songInfo.currentTime)}
+        </p>
+        <div
+          style={{
             background: `linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})`,
-          }} 
+          }}
           className="track"
-          >
+        >
           <input
             type="range"
             value={songInfo.currentTime}
@@ -194,7 +196,9 @@ const Player = ({
           />
           <div style={trackAnim} className="animate-track"></div>
         </div>
-        <p>{songInfo.duration ? formatTime(songInfo.duration) : "0:00"}</p>
+        <p style={{ width: "5ch", boxSizing: "content-box" }}>
+          {songInfo.duration ? formatTime(songInfo.duration) : "0:00"}
+        </p>
       </div>
 
       <div className="player-control">

@@ -49,10 +49,10 @@ input[type="range"]::-moz-slider-thumb {
   color: transparent;
 }
 
-input[type="range"]::-ms-thumb {
+/* input[type="range"]::-ms-thumb {
   -webkit-appearance: none;
   background: transparent;
-}
+} */
 // track is the main div of the range input
 .track {
   width: 100%;

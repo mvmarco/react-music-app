@@ -27,6 +27,13 @@
 input[type="range"]:focus {
   outline: none;
 }
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+}
+
 // changing the blue ball on focus on the range
 input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
@@ -38,9 +45,35 @@ input[type="range"]::-moz-slider-thumb {
   -webkit-appearance: none;
   background: transparent;
   border: none;
-  color: transparent;
+}
+/* 
+input[type="range"]::-ms-thumb {
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
 }
 
+input[type="range"].onoff::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+}
+input[type="range"].onoff::-moz-slider-thumb {
+  -moz-appearance: none;
+  background: transparent;
+  border: none;
+}
+input[type="range"].onoff::slider-thumb {
+  appearance: none;
+  background: transparent;
+  border: none;
+}
+
+input[type="range"].disabled::-webkit-slider-thumb {
+  appearance: none;
+  background: transparent;
+  border: none;
+} */
 // track is the main div of the range input
 .track {
   width: 100%;

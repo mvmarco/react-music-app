@@ -178,7 +178,7 @@ const Player = ({
   return (
     <div className="player-container">
       <div className="time-control">
-        <p style={{width: "6ch"}}>{formatTime(songInfo.currentTime)}</p>
+        <p style={{width: "7ch"}}>{formatTime(songInfo.currentTime)}</p>
         <div
           style={{
             background: `linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]}`,

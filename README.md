@@ -1,2 +1,2 @@
 # Responsive MUSIC APP built with REACT
-https://mvmarco.github.io/react-music-app/
+## Check it out: https://mvmarco.github.io/react-music-app/
